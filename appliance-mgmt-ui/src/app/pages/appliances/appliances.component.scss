@@ -1,0 +1,21 @@
+@import '../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+::ng-deep .nb-theme-default nb-tabset .tab.active .tab-link {
+    background-color: #0095FF; color: #FFFFFF; 
+    width: 100%;
+    &::before {
+        background-color: #0095FF;
+    }
+}
+
+:host /deep/ a { color: #0095FF;font-size:130%; }
+:host /deep/ a:link { color: #0095FF;font-size:130%;}
+:host /deep/ a:hover { color: #0095FF;font-size:130%;}
+:host /deep/ a:focus { color: #0095FF;font-size:130%;}
+
+
+@include nb-install-component() {
+
+}

@@ -1,0 +1,9 @@
+{
+  "host": "mailhub.lss.emc.com",
+  "port": 25,
+  "timeout": 10000,
+  "from": "idpa_appliance_reservation@dell.com",
+  "to": [
+    "rohit.rajbanshi@dell.com"
+  ]
+}

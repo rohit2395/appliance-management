@@ -1,0 +1,32 @@
+<nb-card>
+ 
+    <nb-tabset fullWidth>
+  
+      <nb-tab tabTitle="All Appliances" class="body">
+  
+        <div class="slider-container">
+          <ng2-smart-table [settings]="allApplianceSetting" [source]="allAppliancedata"  (userRowSelect)="getDetails($event.data)">
+          </ng2-smart-table>
+        </div>
+
+      </nb-tab>
+  
+      <!-- <nb-tab tabTitle="Available Appliances">
+  
+        <div class="slider-container">
+          <ng2-smart-table [settings]="availableApplianceSetting" [source]="availableAppliancedata"  (userRowSelect)="getDetails($event.data)">
+          </ng2-smart-table>
+        </div>
+
+      </nb-tab>
+
+      <nb-tab tabTitle="Reserved Appliances">
+  
+        <div class="slider-container">
+          <ng2-smart-table [settings]="reservedApplianceSetting" [source]="reservedAppliancedata"  (userRowSelect)="getDetails($event.data)">
+          </ng2-smart-table>
+        </div>
+
+      </nb-tab> -->
+    </nb-tabset>
+  </nb-card>

@@ -1,0 +1,256 @@
+<nb-card [nbSpinner]="isInProgress" nbSpinnerSize="giant" nbSpinnerStatus="info">
+  <nb-tabset fullWidth class="tab">
+
+    <nb-tab tabTitle="Register">
+
+      <div class="slider-container">
+        
+            <nb-card status="info">
+              <nb-card-header>
+                <div class="title">Register new Appliance</div> 
+              </nb-card-header>
+            
+              <nb-card-body class="body">
+                <form class="form" [formGroup]="addApplianceForm" (ngSubmit)="register()">
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Appliance Model</label>
+                    <div class="col-sm-9">
+                      <nb-select fullWidth shape="rectangle" formControlName="applianceModel">
+                        <nb-option *ngFor="let m of allModels" [value]="m">{{m}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="name" class="label col-sm-3 col-form-label">Appliance Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" nbInput fullWidth shape="rectangle" placeholder="Appliance Name" formControlName="applianceName">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Appliance Location</label>
+                    <div class="col-sm-9">
+                      <nb-select fullWidth shape="rectangle" formControlName="location">
+                        <nb-option *ngFor="let m of allLocations" [value]="m">{{m}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Appliance Generation</label>
+                    <div class="col-sm-9">
+                      <nb-select fullWidth shape="rectangle" formControlName="generation">
+                        <nb-option *ngFor="let m of allGenerations" [value]="m">{{m}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 label col-sm-3 col-form-label">Can be shared</label>
+                    <div class="col-sm-9"> 
+                      <nb-radio-group formControlName="canBeShared">
+                        <nb-radio class="inline-radio" [value]="true">YES</nb-radio>
+                        <nb-radio class="inline-radio" [value]="false">NO</nb-radio>
+                      </nb-radio-group>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">UoM Name</label>
+                    <div class="col-sm-9">
+                      <nb-select fullWidth shape="rectangle" color-info-default formControlName="uomName">
+                        <nb-option *ngFor="let u of allUoms" [value]="u">{{u}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Assignee Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" nbInput fullWidth shape="rectangle" placeholder="Owner Name" formControlName="assignee">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 label col-sm-3 col-form-label">Purpose</label>
+                    <div class="col-sm-9">
+                      <nb-select fullWidth shape="rectangle" formControlName="purpose">
+                        <nb-option *ngFor="let u of allPurpose" [value]="u">{{u}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Configuration Details</label>
+                    <div class="col-sm-9">
+                      <textarea rows="10" class="textarea" nbInput fullWidth shape="rectangle"  placeholder="Configuration (DD,Avamar,ESX,iDRAC,IP Range,JumpBox Details etc.)"  formControlName="configuration"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row register">
+                    <div class="offset-sm-9 col-sm-9">
+                      <button nbButton [status]="'info'" hero>Register</button>
+                      <!-- <button type="submit" nbButton>Register</button> -->
+                    </div>
+                  </div>
+                </form>
+              </nb-card-body>
+            </nb-card>
+      </div>
+    </nb-tab>
+
+    <nb-tab tabTitle="Update">
+
+      <div class="slider-container">
+        
+            <nb-card status="info">
+              <nb-card-header>
+                <div class="title">Update Appliance Details</div> 
+              </nb-card-header>
+            
+              <nb-card-body class="body">
+                <form class="form" [formGroup]="updateApplianceForm" (ngSubmit)="update()">
+                  <div class="form-group row">
+                    <label for="name" class="label col-sm-3 col-form-label">Appliance Name</label>
+                    <div class="col-sm-9">
+                      <nb-select fullWidth shape="rectangle" (selectedChange)="updateUpdateForm($event)" formControlName="applianceName">
+                        <nb-option *ngFor="let a of allApplianceNames" [value]="a">{{a}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Appliance Model</label>
+                    <div class="col-sm-9">
+                      <nb-select fullWidth shape="rectangle" formControlName="applianceModel" formControlName="applianceModel">
+                        <nb-option *ngFor="let m of allModels" [value]="m">{{m}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Appliance Location</label>
+                    <div class="col-sm-9">
+                      <nb-select fullWidth shape="rectangle" formControlName="location">
+                        <nb-option *ngFor="let m of allLocations" [value]="m">{{m}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Appliance Generation</label>
+                    <div class="col-sm-9">
+                      <nb-select fullWidth shape="rectangle" formControlName="generation">
+                        <nb-option *ngFor="let m of allGenerations" [value]="m">{{m}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 label col-sm-3 col-form-label">Can be shared</label>
+                    <div class="col-sm-9"> 
+                      <nb-radio-group formControlName="canBeShared">
+                        <nb-radio class="inline-radio" [value]="true">YES</nb-radio>
+                        <nb-radio class="inline-radio" [value]="false">NO</nb-radio>
+                      </nb-radio-group>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">UoM Name</label>
+                    <div class="col-sm-9">
+                      <nb-select  fullWidth shape="rectangle" color-info-default formControlName="uomName">
+                        <nb-option *ngFor="let u of allUoms" [value]="u">{{u}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Assignee Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" nbInput fullWidth shape="rectangle" placeholder="Owner Name" formControlName="assignee">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 label col-sm-3 col-form-label">Purpose</label>
+                    <div class="col-sm-9">
+                      <nb-select fullWidth shape="rectangle" formControlName="purpose">
+                        <nb-option *ngFor="let u of allPurpose" [value]="u">{{u}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Configuration Details</label>
+                    <div class="col-sm-9">
+                      <textarea rows="10" class="textarea" nbInput fullWidth shape="rectangle"  placeholder="Configuration (DD,Avamar,ESX,iDRAC,IP Range,JumpBox Details etc.)" formControlName="configuration"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row register">
+                    <div class="offset-sm-9 col-sm-9">
+                      <button nbButton [status]="'info'" outline>Update</button>
+                      <!-- <button type="submit" nbButton>Register</button> -->
+                    </div>
+                  </div>
+                </form>
+              </nb-card-body>
+            </nb-card>
+      </div>
+    </nb-tab>
+
+    <nb-tab tabTitle="Delete">
+
+      <div class="slider-container">
+        
+            <nb-card status="info">
+              <nb-card-header>
+                <div class="title">Delete an Appliance</div> 
+              </nb-card-header>
+            
+              <nb-card-body class="body">
+                <form class="form" [formGroup]="deleteApplianceForm" (ngSubmit)="delete()">
+                  <div class="form-group row">
+                    <label for="name" class="label col-sm-3 col-form-label">Appliance Name</label>
+                    <div class="col-sm-9">
+                      <nb-select fullWidth shape="rectangle" (selectedChange)="updateDeleteForm($event)" formControlName="applianceName">
+                        <nb-option *ngFor="let a of allApplianceNames" [value]="a">{{a}}</nb-option>
+                      </nb-select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="name" class="label col-sm-3 col-form-label">Appliance Model</label>
+                    <div class="col-sm-9">
+                      <input type="text" nbInput fullWidth shape="rectangle" placeholder="Appliance Model"  formControlName="applianceModel" readonly>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="name" class="label col-sm-3 col-form-label">Appliance Location</label>
+                    <div class="col-sm-9">
+                      <input type="text" nbInput fullWidth shape="rectangle" placeholder="Appliance Location"  formControlName="location" readonly>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="name" class="label col-sm-3 col-form-label">Appliance Generation</label>
+                    <div class="col-sm-9">
+                      <input type="text" nbInput fullWidth shape="rectangle" placeholder="Appliance Generation"  formControlName="generation" readonly>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Can be shared</label>
+                    <div class="col-sm-9"> 
+                      <nb-radio-group formControlName="canBeShared">
+                        <nb-radio class="inline-radio" [value]="true" disabled>YES</nb-radio>
+                        <nb-radio class="inline-radio" [value]="false" disabled>NO</nb-radio>
+                      </nb-radio-group>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">UoM Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" nbInput fullWidth shape="rectangle" placeholder="UoM Name"  formControlName="uomName" readonly>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="model" class="label col-sm-3 col-form-label">Assignee Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" nbInput fullWidth shape="rectangle" placeholder="Assignee"  formControlName="assignee" readonly>
+                    </div>
+                  </div>
+                  <div class="form-group row register">
+                    <div class="offset-sm-9 col-sm-9">
+                      <button nbButton [status]="'danger'" hero>Delete</button>
+                      <!-- <button type="submit" nbButton>Register</button> -->
+                    </div>
+                  </div>
+                </form>
+              </nb-card-body>
+            </nb-card>
+      </div>
+    </nb-tab>
+  </nb-tabset>
+</nb-card>

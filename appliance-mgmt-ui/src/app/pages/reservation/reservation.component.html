@@ -1,0 +1,164 @@
+<nb-card [nbSpinner]="isInProgress" nbSpinnerSize="giant" nbSpinnerStatus="info">
+    <nb-tabset fullWidth class="tab">
+  
+      <nb-tab tabTitle="Reserve an Appliance">
+  
+        <div class="slider-container">
+            <nb-card status="info">
+                <nb-card-header>
+                  <div class="title">Reserve an available Appliance</div> 
+                </nb-card-header>
+              
+                <nb-card-body class="body">
+                  <form class="form" [formGroup]="reserveApplianceForm" (ngSubmit)="reserve()">
+                    <div class="form-group row">
+                        <label for="name" class="label col-sm-3 col-form-label">Assignee Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" nbInput fullWidth shape="rectangle" placeholder="Assignee Name" formControlName="assigneeName">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="name" class="label col-sm-3 col-form-label">Assignee Email</label>
+                        <div class="col-sm-9">
+                          <input type="email" nbInput fullWidth shape="rectangle" placeholder="Assignee Email" formControlName="assigneeEmail">
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-sm-3 label col-sm-3 col-form-label">UoM Name</label>
+                        <div class="col-sm-9">
+                          <nb-select fullWidth shape="rectangle" formControlName="uomName"  (selectedChange)="uomChanged($event)">
+                            <nb-option *ngFor="let u of allUoms" [value]="u">{{u}}</nb-option>
+                          </nb-select>
+                        </div>
+                      </div>
+                      
+                    <div class="form-group row">
+                      <label class="col-sm-3 label col-sm-3 col-form-label">Appliance</label>
+                      <div class="col-sm-9">
+                        <nb-select fullWidth shape="rectangle" formControlName="availableApplianceName"  (selectedChange)="applianceChangedReservation($event)">
+                          <nb-option *ngFor="let a of allAvailableApplianceByUom" [value]="a.applianceName">{{a.applianceName}}</nb-option>
+                        </nb-select>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="model" class="label col-sm-3 col-form-label">Purpose</label>
+                      <div class="col-sm-9">
+                        <nb-select fullWidth shape="rectangle" formControlName="purpose">
+                          <nb-option *ngFor="let p of allPurpose" [value]="p">{{p}}</nb-option>
+                        </nb-select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="model" class="label col-sm-3 col-form-label">Start Date</label>
+                        <div class="col-sm-3">
+                          <input nbInput fullWidth shape="rectangle" placeholder="Start Date" formControlName="startDate" [nbDatepicker]="datepicker" (ngModelChange)="startDateChanged($event)" readonly>
+                          <nb-datepicker #datepicker  [min]="minDate"></nb-datepicker>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="model" class="label col-sm-3 col-form-label">End Date</label>
+                        <div class="col-sm-3">
+                          <input nbInput fullWidth shape="rectangle" placeholder="End Date" formControlName="endDate" [nbDatepicker]="datepicker1" readonly>
+                          <nb-datepicker #datepicker1  [min]="minEndDate"></nb-datepicker>
+                        </div>
+                      </div>
+                      <div *ngIf="askForAcm">
+                        <div class="form-group row">
+                          <label for="name" class="label col-sm-3 col-form-label">ACM IP</label>
+                          <div class="col-sm-9">
+                            <input type="text" nbInput fullWidth shape="rectangle" placeholder="ACM IP" formControlName="acmIp">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="name" class="label col-sm-3 col-form-label">ACM Passsword</label>
+                          <div class="col-sm-9">
+                            <input type="password" nbInput fullWidth shape="rectangle" placeholder="ACM Password" formControlName="acmPassword">
+                          </div>
+                        </div>
+                      </div>
+                    <div class="form-group row register">
+                      <div class="offset-sm-9 col-sm-9">
+                        <button nbButton [status]="'info'" hero>Reserve</button>
+                        <!-- <button type="submit" nbButton>Register</button> -->
+                      </div>
+                    </div>
+                  </form>
+                </nb-card-body>
+              </nb-card>
+        </div>
+
+      </nb-tab>
+  
+      <nb-tab tabTitle="Release an Appliance">
+  
+        <div class="slider-container">
+            <nb-card status="info">
+                <nb-card-header>
+                  <div class="title">Release a reserved Appliance</div> 
+                </nb-card-header>
+              
+                <nb-card-body class="body">
+                  <form class="form" [formGroup]="releaseApplianceForm" (ngSubmit)="release()">
+                    <div class="form-group row">
+                      <label class="col-sm-3 label col-sm-3 col-form-label">UoM Name</label>
+                      <div class="col-sm-9">
+                        <nb-select fullWidth shape="rectangle" formControlName="uomName"  (selectedChange)="uomChangedReserved($event)">
+                          <nb-option *ngFor="let u of allUoms" [value]="u">{{u}}</nb-option>
+                        </nb-select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="model" class="label col-sm-3 col-form-label">Appliance</label>
+                      <div class="col-sm-9">
+                        <nb-select fullWidth shape="rectangle" formControlName="reservedApplianceName" (selectedChange)="applianceChangedRelease($event)">
+                          <nb-option *ngFor="let r of allReservedApplianceByUom" [value]="r.applianceName">{{r.applianceName}}</nb-option>
+                        </nb-select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="name" class="label col-sm-3 col-form-label">Assignee Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" nbInput fullWidth shape="rectangle" placeholder="Assignee Name" formControlName="assigneeName" readonly>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="name" class="label col-sm-3 col-form-label">Assignee Email</label>
+                      <div class="col-sm-9">
+                        <input type="text" nbInput fullWidth shape="rectangle" placeholder="Assignee Email" formControlName="assigneeEmail" readonly>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="model" class="label col-sm-3 col-form-label">Purpose</label>
+                      <div class="col-sm-9">
+                        <input type="text" nbInput fullWidth shape="rectangle" placeholder="Purpose" formControlName="purpose" readonly>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="model" class="label col-sm-3 col-form-label">Start Date</label>
+                      <div class="col-sm-9">
+                        <input type="text" nbInput fullWidth shape="rectangle" placeholder="Start Date" formControlName="startDate" readonly>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="model" class="label col-sm-3 col-form-label">End Date</label>
+                      <div class="col-sm-9">
+                        <input type="text" nbInput fullWidth shape="rectangle" placeholder="End Date" formControlName="endDate" readonly>
+                      </div>
+                    </div>
+                    <div class="form-group row register">
+                      <div class="offset-sm-9 col-sm-9">
+                        <button nbButton [status]="'info'" hero>Release</button>
+                        <!-- <button type="submit" nbButton>Register</button> -->
+                      </div>
+                    </div>
+                  </form>
+                </nb-card-body>
+              </nb-card>
+        </div>
+
+      </nb-tab>
+
+    </nb-tabset>
+  </nb-card>

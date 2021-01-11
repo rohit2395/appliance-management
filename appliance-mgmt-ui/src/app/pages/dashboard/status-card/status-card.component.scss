@@ -1,0 +1,93 @@
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  nb-card {
+    flex-direction: column;
+    height: 12em;
+    overflow:hidden;
+
+    &.off {
+      color: nb-theme(text-hint-color);
+      .status,
+      .title {
+        color: nb-theme(text-hint-color);
+      }
+    }
+
+    nb-card-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      height:30%;
+    }
+
+    .title {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 60%;
+      @include nb-ltr(padding, 0 0.5rem 0 0.75rem);
+      @include nb-rtl(padding, 0 0.75rem 0 0.5rem);
+      color: white;
+      text-align: center;
+      margin: 0 auto;
+      font-size: 110%;
+    }
+
+    .body {
+      display: flex;
+      flex-direction: row;
+      overflow:hidden;
+    }
+
+    .data {
+      width: 12rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      @include nb-ltr(padding, 0 0.5rem 0 0.75rem);
+      @include nb-rtl(padding, 0 0.75rem 0 0.5rem);
+      border-left: 1px solid transparent;
+      color: #0095ff;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+
+    .value {
+      margin-top: 0.5em;
+      font-size: 2.5rem;
+      block-size: 1em;
+    }
+
+    .status {
+      text-transform: uppercase;
+    }
+
+    .setting{
+      display: flex;
+      flex-direction: column;
+      width: 40%;
+      float:right;
+    }
+
+    .action{
+      background-color: white;
+      border-radius: 5px;
+      width: 13.5rem;
+      height:2.5rem;
+      margin-right: 3px;
+      justify-content: center;
+      align-items: center;
+      color: black;
+      
+      padding-left: 15px;
+    }
+
+    
+    
+    
+  }
+  
+}

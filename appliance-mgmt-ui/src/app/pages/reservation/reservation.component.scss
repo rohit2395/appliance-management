@@ -1,0 +1,50 @@
+@import '../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+::ng-deep .nb-theme-default nb-tabset .tab.active .tab-link {
+    background-color: #0095FF; color: #FFFFFF; 
+    width: 100%;
+    &::before {
+        background-color: #0095FF;
+    }
+}
+
+
+:host /deep/ a { color: #0095FF;font-size:130%; }
+:host /deep/ a:link { color: #0095FF;font-size:130%;}
+:host /deep/ a:hover { color: #0095FF;font-size:130%;}
+:host /deep/ a:focus { color: #0095FF;font-size:130%;}
+
+@include nb-install-component() {
+    .slider-container {
+        flex-direction: column;
+        // height: 40em;
+        overflow:hidden;
+        .title {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            @include nb-ltr(padding, 0 0.5rem 0 0.75rem);
+            @include nb-rtl(padding, 0 0.75rem 0 0.5rem);
+            color: white;
+            text-align: center;
+            margin: 0 auto;
+            font-size: 200%;
+        }
+        
+        .label{
+            font-size: medium;
+        }
+        
+        .row{
+            height: 20%;
+        }
+        .body {
+            
+            overflow: hidden;
+          }
+      
+    }
+
+}
