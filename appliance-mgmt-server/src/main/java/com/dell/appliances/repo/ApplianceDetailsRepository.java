@@ -2,6 +2,8 @@ package com.dell.appliances.repo;
 
 import com.dell.appliances.dto.ApplianceCountByModel;
 import com.dell.appliances.model.ApplianceDetails;
+import com.dell.appliances.service.interfaces.ICountByGeneration;
+import com.dell.appliances.service.interfaces.ICountByLocation;
 import com.dell.appliances.service.interfaces.ICountByModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +24,10 @@ public interface ApplianceDetailsRepository extends JpaRepository<ApplianceDetai
 
     @Query("SELECT c.applianceModel as model, COUNT(c.applianceModel) as totalCount FROM ApplianceDetails AS c GROUP BY c.applianceModel")
     List<ICountByModel> getTotalCountByModel();
+
+    @Query("SELECT c.location as location, COUNT(c.location) as totalCount FROM ApplianceDetails AS c GROUP BY c.location")
+    List<ICountByLocation> getTotalCountByLocation();
+
+    @Query("SELECT c.generation as generation, COUNT(c.generation) as totalCount FROM ApplianceDetails AS c GROUP BY c.generation")
+    List<ICountByGeneration> getTotalCountByGeneration();
 }

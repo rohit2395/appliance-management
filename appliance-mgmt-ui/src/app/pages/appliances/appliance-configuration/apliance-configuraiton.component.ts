@@ -17,6 +17,7 @@ export class ApplianceConfiguration implements OnInit {
 
   isInProgress:boolean;
   textareaBg:string;
+  textareaColor:string;
   isDisabled:boolean;
   updateConfigurationForm: FormGroup;
   applianceDetails: ApplianceDetailsPayload;
@@ -30,6 +31,7 @@ export class ApplianceConfiguration implements OnInit {
     
     this.updateConfigurationForm = this.formBuilder.group({
       assignee:[{value:this.applianceDetails.assignee,disabled:this.isDisabled},Validators.required],
+      email:[{value:this.applianceDetails.assigneeEmail,disabled:this.isDisabled},Validators.required],
       purpose:[{value:this.applianceDetails.purpose,disabled:this.isDisabled},Validators.required],
       configuration:[{value:this.applianceDetails.configuration,disabled:this.isDisabled},Validators.required]
     });
@@ -61,8 +63,10 @@ export class ApplianceConfiguration implements OnInit {
   init():void{
     this.isInProgress=false;
     this.isDisabled = true;
-    this.textareaBg='#E1E1E1';
+    this.textareaBg='#F7F9FC';
+    this.textareaColor='#C9D0DC';
     this.updateConfigurationForm.get('assignee').disable();
+    this.updateConfigurationForm.get('email').disable();
     this.updateConfigurationForm.get('purpose').disable();
     this.updateConfigurationForm.get('configuration').disable();
   }
@@ -71,21 +75,25 @@ export class ApplianceConfiguration implements OnInit {
     console.log("You can update");
     this.isDisabled = false;
     this.updateConfigurationForm.get('assignee').enable();
+    this.updateConfigurationForm.get('email').enable();
     this.updateConfigurationForm.get('purpose').enable();
     this.updateConfigurationForm.get('configuration').enable();
     this.textareaBg='white';
+    this.textareaColor='black';
   }
 
   update(): void {
     this.isInProgress=true;
     // this.configuration=this.updateConfigurationForm.get("configuration").value;
     this.applianceDetails.assignee = this.updateConfigurationForm.get("assignee").value;
+    this.applianceDetails.assigneeEmail = this.updateConfigurationForm.get("email").value;
     this.applianceDetails.purpose = this.updateConfigurationForm.get("purpose").value;
     this.applianceDetails.configuration = this.updateConfigurationForm.get("configuration").value;
     console.log(this.applianceDetails);
     let registerDetailsPayload = new RegisterDetailsPayload();
     registerDetailsPayload.applianceName = this.applianceDetails.applianceName;
     registerDetailsPayload.assignee = this.applianceDetails.assignee;
+    registerDetailsPayload.assigneeEmail = this.applianceDetails.assigneeEmail;
     registerDetailsPayload.purpose = this.applianceDetails.purpose;
     registerDetailsPayload.configuration = this.applianceDetails.configuration;
     this.registerService.updateAppliance(registerDetailsPayload).subscribe(data => {

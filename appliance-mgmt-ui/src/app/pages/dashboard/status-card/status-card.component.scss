@@ -31,13 +31,14 @@
       color: white;
       text-align: center;
       margin: 0 auto;
-      font-size: 110%;
+      font-size: 130%;
     }
 
     .body {
       display: flex;
       flex-direction: row;
       overflow:hidden;
+      justify-content: center;
     }
 
     .data {
@@ -50,7 +51,7 @@
       @include nb-ltr(padding, 0 0.5rem 0 0.75rem);
       @include nb-rtl(padding, 0 0.75rem 0 0.5rem);
       border-left: 1px solid transparent;
-      color: #0095ff;
+      color: #A52A2A; font-size: 20px; font-weight: bold;
       margin-bottom: 5px;
       text-decoration: none;
     }
@@ -59,6 +60,7 @@
       margin-top: 0.5em;
       font-size: 2.5rem;
       block-size: 1em;
+      color: #0095ff;
     }
 
     .status {

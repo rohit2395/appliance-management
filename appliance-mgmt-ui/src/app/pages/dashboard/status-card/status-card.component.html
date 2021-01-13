@@ -4,9 +4,7 @@
   </nb-card-header>
 
   <nb-card-body class="body">
-    <a class="data h7" href="/all">Total<span class="value text-info">{{total}}</span></a>
-    <a class="data h7" href="/all">Available <span class="value text-success">{{available}}</span></a>
-    <a class="data h7" href="/all">Reserved<span class="value text-danger">{{reserved}}</span></a>
+    <a class="data h7" href="/all" *ngFor="let field of fields;">{{field.key}}<span class="value">{{field.value}}</span></a>
   </nb-card-body>
 </nb-card> 
 

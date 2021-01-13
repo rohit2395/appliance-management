@@ -1,8 +1,6 @@
 package com.dell.appliances.service;
 
-import com.dell.appliances.dto.ActivityDetailsPayload;
-import com.dell.appliances.dto.ApplianceCount;
-import com.dell.appliances.dto.ApplianceCountByModel;
+import com.dell.appliances.dto.*;
 import com.dell.appliances.exceptions.ApplianceException;
 import com.dell.appliances.model.ActivityDetails;
 import com.dell.appliances.model.ApplianceDetails;
@@ -12,9 +10,7 @@ import com.dell.appliances.repo.ActivityDetailsRepository;
 import com.dell.appliances.repo.ApplianceDetailsRepository;
 import com.dell.appliances.repo.AppliancePossessionRepository;
 import com.dell.appliances.repo.UnitOfManagementRepository;
-import com.dell.appliances.service.interfaces.IAlertingService;
-import com.dell.appliances.service.interfaces.ICountByModel;
-import com.dell.appliances.service.interfaces.IGeneralService;
+import com.dell.appliances.service.interfaces.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,6 +101,7 @@ public class GeneralService implements IGeneralService {
         allLocationList.add(Location.HOPKINTON.getVal());
         allLocationList.add(Location.BANGLORE.getVal());
         allLocationList.add(Location.SANTA_CLARA.getVal());
+        allLocationList.add(Location.CHINA.getVal());
         return allLocationList;
     }
 
@@ -122,7 +119,12 @@ public class GeneralService implements IGeneralService {
         ApplianceCount applianceCount = new ApplianceCount();
 
         for(ApplianceDetails applianceDetails : applianceDetailsList){
-            if(applianceDetails.getApplianceModel().equals(ApplianceModel.MODEL_4400) || applianceDetails.getApplianceModel().equals(ApplianceModel.MODEL_4400S)) {
+            if(applianceDetails.getApplianceModel().equals(ApplianceModel.MODEL_4400S)) {
+                applianceCount.setTotal4x00s(applianceCount.getTotal4x00s() + 1);
+                if(applianceDetails.getAppliancePossessionStatus().equals(AppliancePossessionStatus.AVAILABLE))
+                    applianceCount.setTotalAvailable4x00s(applianceCount.getTotalAvailable4x00s()+1);
+            }
+            else if(applianceDetails.getApplianceModel().equals(ApplianceModel.MODEL_4400)) {
                 applianceCount.setTotal4x00(applianceCount.getTotal4x00() + 1);
                 if(applianceDetails.getAppliancePossessionStatus().equals(AppliancePossessionStatus.AVAILABLE))
                     applianceCount.setTotalAvailable4x00(applianceCount.getTotalAvailable4x00()+1);
@@ -141,13 +143,23 @@ public class GeneralService implements IGeneralService {
             }
         }
 
-        applianceCount.setTotalAppliances(applianceCount.getTotal4x00()+applianceCount.getTotal5x00()+applianceCount.getTotal8x00());
+        applianceCount.setTotalAppliances(applianceCount.getTotal4x00s()+applianceCount.getTotal4x00()+applianceCount.getTotal5x00()+applianceCount.getTotal8x00());
         applianceCount.setTotalAvailableAppliances(applianceCount.getTotalAvailable4x00()+applianceCount.getTotalAvailable5x00()+applianceCount.getTotalAvailable8x00());
         applianceCount.setTotalReservedAppliaces(Math.abs(applianceCount.getTotalAppliances() - applianceCount.getTotalAvailableAppliances()));
 
         applianceCount.setTotalReserved4x00(Math.abs(applianceCount.getTotal4x00()-applianceCount.getTotalAvailable4x00()));
         applianceCount.setTotalReserved5x00(Math.abs(applianceCount.getTotal5x00()-applianceCount.getTotalAvailable5x00()));
         applianceCount.setTotalReserved8x00(Math.abs(applianceCount.getTotal8x00()-applianceCount.getTotalAvailable8x00()));
+
+        applianceCount.setCountByLoc(new ArrayList<>());
+        applianceCount.setCountByGen(new ArrayList<>());
+        for(ICountByLocation countByLocation : applianceDetailsRepository.getTotalCountByLocation()){
+            applianceCount.getCountByLoc().add(new CountByLocation(countByLocation.getLocation().getVal(),countByLocation.getTotalCount()));
+        }
+
+        for(ICountByGeneration countByGeneration : applianceDetailsRepository.getTotalCountByGeneration()){
+            applianceCount.getCountByGen().add(new CountByGeneration(countByGeneration.getGeneration().getVal(),countByGeneration.getTotalCount()));
+        }
 
         return applianceCount;
     }

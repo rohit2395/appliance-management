@@ -1,39 +1,21 @@
 <div class="row">
-  <div class="col-xxxl-3 col-md-3" >
-    <ngx-status-card [title]="applianceCard.title" [type]="applianceCard.type" [total]="applianceCard.total" [available]="applianceCard.available" [reserved]="applianceCard.reserved">
-    </ngx-status-card>
-  </div>
-  <div class="col-xxxl-3 col-md-3" >
-    <ngx-status-card [title]="model4x.title" [type]="model4x.type" [total]="model4x.total" [available]="model4x.available" [reserved]="model4x.reserved">
-    </ngx-status-card>
-  </div>
-  <div class="col-xxxl-3 col-md-3" >
-    <ngx-status-card [title]="model5x.title" [type]="model5x.type" [total]="model5x.total" [available]="model5x.available" [reserved]="model5x.reserved">
-    </ngx-status-card>
-  </div>
-  <div class="col-xxxl-3 col-md-3" >
-    <ngx-status-card [title]="model8x.title" [type]="model8x.type" [total]="model8x.total" [available]="model8x.available" [reserved]="model8x.reserved">
+  <div class="col-xxxl-12 col-md-12" >
+    <ngx-status-card [title]="applianceCard.title" [fields]="applianceCard.fields">
     </ngx-status-card>
   </div>
 </div>
+
 <div class="row">
-  <div class="col-xxxl-3 col-md-3" >
-    <ngx-status-card [title]="applianceCard.title" [type]="applianceCard.type" [total]="applianceCard.total" [available]="applianceCard.available" [reserved]="applianceCard.reserved">
+  <div class="col-xxxl-8 col-md-8" >
+    <ngx-status-card [title]="location.title" [fields]="location.fields">
     </ngx-status-card>
   </div>
-  <div class="col-xxxl-3 col-md-3" >
-    <ngx-status-card [title]="model4x.title" [type]="model4x.type" [total]="model4x.total" [available]="model4x.available" [reserved]="model4x.reserved">
-    </ngx-status-card>
-  </div>
-  <div class="col-xxxl-3 col-md-3" >
-    <ngx-status-card [title]="model5x.title" [type]="model5x.type" [total]="model5x.total" [available]="model5x.available" [reserved]="model5x.reserved">
-    </ngx-status-card>
-  </div>
-  <div class="col-xxxl-3 col-md-3" >
-    <ngx-status-card [title]="model8x.title" [type]="model8x.type" [total]="model8x.total" [available]="model8x.available" [reserved]="model8x.reserved">
+  <div class="col-xxxl-4 col-md-4" >
+    <ngx-status-card [title]="generation.title" [fields]="generation.fields">
     </ngx-status-card>
   </div>
 </div>
+
 <!-- <div class="row">
   <div class="col-xxxl-12 col-md-12" >
     <nb-card status="info">

@@ -1,13 +1,12 @@
 import { Component, OnDestroy ,OnInit} from '@angular/core';
 import { ApplianceCount } from './appliance-count';
 import { DashboardService } from '../../services/dashboard.service';
+import { Field } from './status-card/fields';
+import { RegisterService } from 'app/services/register.service';
 
 interface CardSettings {
-  title: string;
-  type: string;
-  total:number;
-  available:number;
-  reserved:number;
+  title: String;
+  fields:Field[];
 }
 
 @Component({
@@ -17,6 +16,11 @@ interface CardSettings {
 })
 export class DashboardComponent implements OnDestroy,OnInit {
 
+  TOTAL = "Total";
+  DP4Xs = "4400s";
+  DP4X = "4400";
+  DP5x = "5x00";
+  DP8x = "8x00"
   private alive = true;
 
   activitySettings = {
@@ -45,50 +49,43 @@ export class DashboardComponent implements OnDestroy,OnInit {
 
   applianceCard: CardSettings = {
     title: 'All Appliances',
-    type: 'fi',
-    total:0,
-    available:0,
-    reserved:0
+    fields:[],
   };
 
-  model4x: CardSettings = {
-    title: '4400 & 4400s',
-    type: 'fi',
-    total:0,
-    available:0,
-    reserved:0
+
+  location: CardSettings = {
+    title: 'By Location',
+    fields:[],
   };
-  model5x: CardSettings = {
-    title: '5x00',
-    type: 'fi',
-    total:0,
-    available:0,
-    reserved:0
-  };
-  model8x: CardSettings = {
-    title: '8x00',
-    type: 'fi',
-    total:0,
-    available:0,
-    reserved:0
+
+  generation: CardSettings = {
+    title: 'By Generation',
+    fields:[],
   };
 
   activityData = [];
 
-  constructor(private dashboardService : DashboardService) {
+  constructor(private dashboardService : DashboardService,private registerService:RegisterService) {
     this.applianeCount = {
       totalAppliances:0,
-        totalAvailableAppliances:0,
-        totalReservedAppliaces:0,
-        total4x00:0,
-        totalAvailable4x00:0,
-        totalReserved4x00:0,
-        total5x00:0,
-        totalAvailable5x00:0,
-        totalReserved5x00:0,
-        total8x00:0,
-        totalAvailable8x00:0,
-        totalReserved8x00:0
+      totalAvailableAppliances:0,
+      totalReservedAppliaces:0,
+      total4x00s:0,
+      totalAvailable4x00s:0,
+      totalReserved4x00s:0,
+      total4x00:0,
+      totalAvailable4x00:0,
+      totalReserved4x00:0,
+      total5x00:0,
+      totalAvailable5x00:0,
+      totalReserved5x00:0,
+      total8x00:0,
+      totalAvailable8x00:0,
+      totalReserved8x00:0,
+      
+      countByLoc:[],
+      countByGen:[]
+
     }    
   }
   ngOnInit(): void {
@@ -108,21 +105,19 @@ export class DashboardComponent implements OnDestroy,OnInit {
       this.applianeCount = data;
       console.log(this.applianeCount);
 
-      this.applianceCard.total = this.applianeCount.totalAppliances;
-      this.applianceCard.available = this.applianeCount.totalAvailableAppliances;
-      this.applianceCard.reserved = this.applianeCount.totalReservedAppliaces;
+      this.applianceCard.fields.push({key:this.TOTAL,value:this.applianeCount.totalAppliances});
+      this.applianceCard.fields.push({key:this.DP4Xs,value:this.applianeCount.total4x00s});
+      this.applianceCard.fields.push({key:this.DP4X,value:this.applianeCount.total4x00});
+      this.applianceCard.fields.push({key:this.DP5x,value:this.applianeCount.total5x00});
+      this.applianceCard.fields.push({key:this.DP8x,value:this.applianeCount.total8x00});
       
-      this.model4x.total = this.applianeCount.total4x00;
-      this.model4x.available = this.applianeCount.totalAvailable4x00;
-      this.model4x.reserved = this.applianeCount.totalReserved4x00;
+      for(let loc of this.applianeCount.countByLoc){
+        this.location.fields.push({key:loc["locName"],value:loc["count"]});
+      }
 
-      this.model5x.total = this.applianeCount.total5x00;
-      this.model5x.available = this.applianeCount.totalAvailable5x00;
-      this.model5x.reserved = this.applianeCount.totalReserved5x00;
-
-      this.model8x.total = this.applianeCount.total8x00;
-      this.model8x.available = this.applianeCount.totalAvailable8x00;
-      this.model8x.reserved = this.applianeCount.totalReserved8x00;
+      for(let gen of this.applianeCount.countByGen){
+        this.generation.fields.push({key:gen["gen"],value:gen["count"]});
+      }
       
       
     }, error => {

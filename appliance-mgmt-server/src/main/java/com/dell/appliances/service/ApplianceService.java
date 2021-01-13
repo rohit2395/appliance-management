@@ -54,6 +54,7 @@ public class ApplianceService implements IApplianceService {
             applianceDetails.setLocation(Location.getLocation(applianceDetailsPayload.getLocation()));
             applianceDetails.setGeneration(Generation.getGeneration(applianceDetailsPayload.getGeneration()));
             applianceDetails.setOwnerName(applianceDetailsPayload.getAssignee());
+            applianceDetails.setEmail(applianceDetailsPayload.getAssigneeEmail());
             applianceDetails.setPurpose(Purpose.getPurpose(applianceDetailsPayload.getPurpose()));
             applianceDetails.setConfiguration(applianceDetailsPayload.getConfiguration());
             applianceDetailsRepository.save(applianceDetails);
@@ -111,6 +112,8 @@ public class ApplianceService implements IApplianceService {
                 }
                 if(Objects.nonNull(applianceDetailsPayload.getAssignee()))
                     applianceDetails.setOwnerName(applianceDetailsPayload.getAssignee());
+                if(Objects.nonNull(applianceDetailsPayload.getAssigneeEmail()))
+                    applianceDetails.setEmail(applianceDetailsPayload.getAssigneeEmail());
                 if(Objects.nonNull(applianceDetailsPayload.getPurpose()))
                     applianceDetails.setPurpose(Purpose.getPurpose(applianceDetailsPayload.getPurpose()));
                 if(Objects.nonNull(applianceDetailsPayload.getConfiguration()))
@@ -243,6 +246,7 @@ public class ApplianceService implements IApplianceService {
         applianceDetailsPayload.setGeneration(applianceDetails.getGeneration().getVal());
         applianceDetailsPayload.setConfiguration(applianceDetails.getConfiguration());
         applianceDetailsPayload.setAssignee(applianceDetails.getOwnerName());
+        applianceDetailsPayload.setAssigneeEmail(applianceDetails.getEmail());
         if(Objects.nonNull(applianceDetails.getAppliancePossession())){
 //            applianceDetailsPayload.setPurpose(applianceDetails.getAppliancePossession().getPurpose().getVal());
 //            applianceDetailsPayload.setAssignee(applianceDetails.getAppliancePossession().getAssigneeName());

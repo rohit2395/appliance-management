@@ -38,6 +38,9 @@ public class ApplianceDetails {
     @Column(name = "owner_name")
     private String ownerName;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "location",nullable=false)
     @Enumerated(EnumType.STRING)
     private Location location;
@@ -179,6 +182,14 @@ public class ApplianceDetails {
 
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Location getLocation() {

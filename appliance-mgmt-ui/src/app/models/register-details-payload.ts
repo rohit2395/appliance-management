@@ -6,6 +6,7 @@ export class RegisterDetailsPayload{
     canBeShared:String;
     uomName:String;
     assignee:String;
+    assigneeEmail:String;
     purpose:String;
     configuration:String;
 }

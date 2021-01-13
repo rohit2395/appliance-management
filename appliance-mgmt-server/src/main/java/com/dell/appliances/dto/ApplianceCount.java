@@ -1,5 +1,7 @@
 package com.dell.appliances.dto;
 
+import java.util.List;
+
 /*
  *    Created by rajbar[rohit.rajbanshi@dell.com] on Monday 12/7/2020
  *
@@ -14,6 +16,10 @@ public class ApplianceCount {
     private int totalAvailable4x00;
     private int totalReserved4x00;
 
+    private int total4x00s;
+    private int totalAvailable4x00s;
+    private int totalReserved4x00s;
+
     private int total5x00;
     private int totalAvailable5x00;
     private int totalReserved5x00;
@@ -21,6 +27,9 @@ public class ApplianceCount {
     private int total8x00;
     private int totalAvailable8x00;
     private int totalReserved8x00;
+
+    private List<CountByLocation> countByLoc;
+    private List<CountByGeneration> countByGen;
 
     public int getTotalAppliances() {
         return totalAppliances;
@@ -70,6 +79,30 @@ public class ApplianceCount {
         this.totalReserved4x00 = totalReserved4x00;
     }
 
+    public int getTotal4x00s() {
+        return total4x00s;
+    }
+
+    public void setTotal4x00s(int total4x00s) {
+        this.total4x00s = total4x00s;
+    }
+
+    public int getTotalAvailable4x00s() {
+        return totalAvailable4x00s;
+    }
+
+    public void setTotalAvailable4x00s(int totalAvailable4x00s) {
+        this.totalAvailable4x00s = totalAvailable4x00s;
+    }
+
+    public int getTotalReserved4x00s() {
+        return totalReserved4x00s;
+    }
+
+    public void setTotalReserved4x00s(int totalReserved4x00s) {
+        this.totalReserved4x00s = totalReserved4x00s;
+    }
+
     public int getTotal5x00() {
         return total5x00;
     }
@@ -116,5 +149,21 @@ public class ApplianceCount {
 
     public void setTotalReserved8x00(int totalReserved8x00) {
         this.totalReserved8x00 = totalReserved8x00;
+    }
+
+    public List<CountByLocation> getCountByLoc() {
+        return countByLoc;
+    }
+
+    public void setCountByLoc(List<CountByLocation> countByLoc) {
+        this.countByLoc = countByLoc;
+    }
+
+    public List<CountByGeneration> getCountByGen() {
+        return countByGen;
+    }
+
+    public void setCountByGen(List<CountByGeneration> countByGen) {
+        this.countByGen = countByGen;
     }
 }

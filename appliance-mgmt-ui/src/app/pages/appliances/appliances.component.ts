@@ -62,7 +62,12 @@ export class AppliancesComponent implements OnInit {
       
       assignee: {
         title: 'Assignee',
-        type: 'number',
+        type: 'string',
+        width:'8%',
+      },
+      assigneeEmail: {
+        title: 'Email',
+        type: 'string',
         width:'8%',
       },
       purpose: {
@@ -230,7 +235,7 @@ export class AppliancesComponent implements OnInit {
     console.log(applianceData);
     
     const dialogRef = this.dialog.open(ApplianceConfiguration, {
-      height: 'auto',
+      height: '99%',
       width: '65%',
       data: {
         applianceDetails: applianceData

@@ -2,6 +2,9 @@ export class ApplianceCount{
         totalAppliances:number;
         totalAvailableAppliances:number;
         totalReservedAppliaces:number;
+        total4x00s:number;
+        totalAvailable4x00s:number;
+        totalReserved4x00s:number;
         total4x00:number;
         totalAvailable4x00:number;
         totalReserved4x00:number;
@@ -11,4 +14,7 @@ export class ApplianceCount{
         total8x00:number;
         totalAvailable8x00:number;
         totalReserved8x00:number;
+
+        countByLoc:[];
+        countByGen:[];
 }

@@ -50,6 +50,7 @@ export class RegisterComponent implements OnInit {
       canBeShared:'',
       uomName:'',
       assignee:'',
+      assigneeEmail:'',
       purpose:'',
       configuration:''
     }

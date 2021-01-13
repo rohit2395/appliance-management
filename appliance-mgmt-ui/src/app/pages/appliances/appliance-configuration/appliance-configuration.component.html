@@ -1,4 +1,4 @@
-<mat-dialog-content class="dialog-content">
+<!-- <mat-dialog-content class="dialog-content"> -->
   <nb-card status="info">
     <nb-card-header>
       <div class="title">Appliance Details</div>
@@ -31,7 +31,7 @@
         <label for="name" class="label label2 col-xs-8 col-form-label">{{applianceDetails.purpose}}</label>
       </div>
       <form class="form" [formGroup]="updateConfigurationForm">
-        <div class="row">
+        <div class="row" style="margin-bottom: 10px;">
           <div class="col-sm-11 col-form-label"></div>
           <!-- <div class="col-sm-12"> -->
           <button type="button" class="btn btn-light edit" nbTooltip="Update Appliance Configuration"
@@ -41,15 +41,19 @@
         </div>
         <div class="row"> </div><div class="row"> </div>
         <div class="form-group row">
-          <label for="name" class="label col-sm-3 col-form-label">Assignee Name</label>
-          <div class="col-sm-9">
-            <input type="text" [style.background]="textareaBg" nbInput fullWidth shape="rectangle" placeholder="Assignee Name" formControlName="assignee">
+          <label for="name" class="label bluelabel col-sm-3 col-form-label">Assignee Name:</label>
+          <div class="col-sm-3">
+            <input type="text"  nbInput fullWidth shape="rectangle" placeholder="Assignee Name" formControlName="assignee">
+          </div>
+          <label for="name" class="label bluelabel col-sm-1 col-form-label">Email:</label>
+          <div class="col-sm-5">
+            <input type="email"  nbInput fullWidth shape="rectangle" placeholder="Email" formControlName="email">
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 label col-sm-3 col-form-label">Purpose</label>
+          <label class="col-sm-3 label bluelabel col-sm-3 col-form-label">Purpose:</label>
           <div class="col-sm-9">
-            <nb-select [style.background]="textareaBg" fullWidth shape="rectangle" formControlName="purpose">
+            <nb-select fullWidth shape="rectangle" formControlName="purpose">
               <nb-option *ngFor="let u of allPurpose" [value]="u">{{u}}</nb-option>
             </nb-select>
           </div>
@@ -60,7 +64,7 @@
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <textarea [style.background]="textareaBg" rows="10" class="label2 textarea disable" nbInput fullWidth
+            <textarea [style.background]="textareaBg" [style.color]="textareaColor" class="label2 textarea disable" nbInput fullWidth
               shape="rectangle" placeholder="Configuration (DD,Avamar,ESX,iDRAC,IP Range,JumpBox Details etc.)"
               formControlName="configuration"></textarea>
           </div>
@@ -68,11 +72,11 @@
       </form>
     </nb-card-body>
   </nb-card>
-</mat-dialog-content>
+<!-- </mat-dialog-content> -->
 <!-- <mat-dialog-actions> -->
-<div class="row update">
-  <div class="col-sm-10"></div>
-  <div class="col-sm-2"><button nbButton [status]="'info'" outline (click)="update()"
-      [disabled]="isDisabled">Update</button></div>
-</div>
+  <div class="row update">
+    <div class="col-sm-10"></div>
+    <div class="col-sm-2"><button nbButton [status]="'info'" outline (click)="update()"
+        [disabled]="isDisabled">Update</button></div>
+  </div>
 <!-- </mat-dialog-actions> -->

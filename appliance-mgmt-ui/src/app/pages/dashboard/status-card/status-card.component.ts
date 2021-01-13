@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, } from '@angular/core';
+import { Field } from './fields';
 
 @Component({
   selector: 'ngx-status-card',
@@ -11,9 +12,7 @@ export class StatusCardComponent implements OnInit {
      
   @Input() title: string;
   @Input() type: string;
-  @Input() total: number;
-  @Input() available: number;
-  @Input() reserved: number;
+  @Input() fields: Field[];
   
   
   ngOnInit(): void {

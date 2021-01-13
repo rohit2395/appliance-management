@@ -4,9 +4,11 @@
 
 
 @include nb-install-component() {
-  .dialog-content{
-      flex-direction: column;
-      overflow: hidden;
+  // .dialog-content{
+    nb-card{
+    flex-direction: column;
+    // overflow: hidden;
+    height: 88%;
     .title {
       display: flex;
       flex-direction: row;
@@ -29,7 +31,8 @@
   }
   
   .row{
-      height: 24%;
+      height: 5%;
+      // border: 1px black solid;
   }
 
   .body{
@@ -53,9 +56,11 @@
   }
 
   .textarea {
-    resize: none;
+    // resize: none;
     font-size: 14px;
+    height: 400%;
   }
+ 
   .disable {
     background-color: white;
   }
