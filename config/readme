@@ -1,0 +1,6 @@
+Copy idpa.local file in /etc/nginx/sites-available directory
+
+Create directory /usr/local/appliance_reservation
+Copy the application jar in above directory
+Copy appliance-mgmt-server in /usr/local/appliance_reservation/
+Copy appliance-mgmt-server.service file in /etc/systemd/system/ directory

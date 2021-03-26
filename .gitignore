@@ -5,6 +5,7 @@ target/
 !**/src/test/**
 appliance-mgmt-server/logs
 logs
+uploads
 
 ### STS ###
 .apt_generated

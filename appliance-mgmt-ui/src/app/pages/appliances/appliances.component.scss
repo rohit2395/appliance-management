@@ -19,3 +19,17 @@
 @include nb-install-component() {
 
 }
+
+.filters{
+    margin-bottom: 2%;
+    overflow: hidden;
+}
+.filter{
+    // width: 60%;
+    max-width: 60%;
+    // border: 1px red solid;
+}
+
+.count{
+    color: #2473d4;
+}

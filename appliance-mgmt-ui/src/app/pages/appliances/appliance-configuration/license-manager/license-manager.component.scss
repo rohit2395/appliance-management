@@ -1,4 +1,4 @@
-@import '../../../@theme/styles/themes';
+@import '../../../../@theme/styles/themes';
 @import '~bootstrap/scss/mixins/breakpoints';
 @import '~@nebular/theme/styles/global/breakpoints';
 
@@ -21,6 +21,10 @@
       font-size: 200%;
   }
   
+  // .popup{
+  //   overflow: hidden;
+  // }
+  
   .label{
       font-size: medium;
   }
@@ -36,13 +40,13 @@
   }
 
   .body{
-    overflow-x:hidden;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      
   }
 
-  .inline-radio {
-    display: inline!important;
-  }
-
+  
   .label{
     font-size: medium;
   }
@@ -55,20 +59,26 @@
     color: #FF0000;
   }
 
-  .textarea {
-    // resize: none;
-    font-size: 14px;
-    // height: 400%;
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
   }
- 
-  .disable {
-    background-color: white;
+  
+  td, th {
+    border: 1px solid #EDF1F7;
+    text-align: left;
+    padding: 8px;
   }
- 
-  .edit{
-    padding:0px;
-    border-color: white;
+  
+  tr:nth-child(even) {
+    background-color: #EDF1F7;
   }
+
+  .licenses{
+    display: flex;
+    flex-direction: column;
+  } 
 
  }
 }

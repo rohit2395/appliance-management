@@ -89,10 +89,12 @@ public class GeneralService implements IGeneralService {
         allPurposeList.add(Purpose.DEVELOPMENT.getVal());
         allPurposeList.add(Purpose.FEATURE_TESTING.getVal());
         allPurposeList.add(Purpose.UPGRADE_TESTING.getVal());
-        allPurposeList.add(Purpose.AUTOMATION.getVal());
+        allPurposeList.add(Purpose.FI_AUTOMATION.getVal());
+        allPurposeList.add(Purpose.UPG_AUTOMATION.getVal());
         allPurposeList.add(Purpose.REGRESSION.getVal());
         allPurposeList.add(Purpose.SYSTEM_TESTING.getVal());
         allPurposeList.add(Purpose.PERFORMANCE.getVal());
+        allPurposeList.add(Purpose.CFT.getVal());
         return allPurposeList;
     }
     @Override
@@ -100,6 +102,7 @@ public class GeneralService implements IGeneralService {
         List<String> allLocationList = new ArrayList<>();
         allLocationList.add(Location.HOPKINTON.getVal());
         allLocationList.add(Location.BANGLORE.getVal());
+        allLocationList.add(Location.DURHAM.getVal());
         allLocationList.add(Location.SANTA_CLARA.getVal());
         allLocationList.add(Location.CHINA.getVal());
         return allLocationList;

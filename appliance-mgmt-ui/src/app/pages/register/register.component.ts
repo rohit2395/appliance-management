@@ -68,6 +68,7 @@ export class RegisterComponent implements OnInit {
       canBeShared:[ true, Validators.required ],
       uomName:[ null, Validators.required ],
       assignee:[ null, Validators.required ],
+      assigneeEmail:[ null, Validators.required ],
       purpose:[ null, Validators.required ],
       configuration:[ "", Validators.required ]
     });
@@ -79,6 +80,7 @@ export class RegisterComponent implements OnInit {
       generation:[ null, Validators.required ],
       canBeShared:[ true, Validators.required ],
       uomName:[ null, Validators.required ],
+      assigneeEmail:[ null, Validators.required ],
       assignee:[ null, Validators.required ],
       purpose:[ null, Validators.required ],
       configuration:[ "", Validators.required ]
@@ -219,6 +221,7 @@ export class RegisterComponent implements OnInit {
     this.registerDetailsPayload.canBeShared = this.addApplianceForm.get('canBeShared').value;
     this.registerDetailsPayload.uomName = this.addApplianceForm.get('uomName').value;
     this.registerDetailsPayload.assignee = this.addApplianceForm.get('assignee').value;
+    this.registerDetailsPayload.assigneeEmail = this.addApplianceForm.get('assigneeEmail').value;
     this.registerDetailsPayload.purpose = this.addApplianceForm.get('purpose').value;
     this.registerDetailsPayload.configuration = this.addApplianceForm.get('configuration').value;
     
@@ -257,6 +260,7 @@ export class RegisterComponent implements OnInit {
     this.registerDetailsPayload.canBeShared = this.updateApplianceForm.get('canBeShared').value;
     this.registerDetailsPayload.uomName = this.updateApplianceForm.get('uomName').value;
     this.registerDetailsPayload.assignee = this.updateApplianceForm.get('assignee').value;
+    this.registerDetailsPayload.assigneeEmail = this.updateApplianceForm.get('assigneeEmail').value;
     this.registerDetailsPayload.purpose = this.updateApplianceForm.get('purpose').value;
     this.registerDetailsPayload.configuration = this.updateApplianceForm.get('configuration').value;
     
@@ -327,6 +331,7 @@ export class RegisterComponent implements OnInit {
       this.updateApplianceForm.patchValue({canBeShared:data.canBeShared})
       this.updateApplianceForm.patchValue({uomName:data.uomName})
       this.updateApplianceForm.patchValue({assignee:data.assignee})
+      this.updateApplianceForm.patchValue({assigneeEmail:data.assigneeEmail})
       this.updateApplianceForm.patchValue({purpose:data.purpose})
       this.updateApplianceForm.patchValue({configuration:data.configuration})
     }, error => {

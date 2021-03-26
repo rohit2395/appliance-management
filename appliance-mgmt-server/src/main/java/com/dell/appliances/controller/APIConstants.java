@@ -7,6 +7,7 @@ public interface APIConstants {
     String GENERAL = ROOT + "/general";
     String AUTH = ROOT + "/auth";
     String RESERVATION = ROOT + "/reservation";
+    String FILES = ROOT + "/files";
 
     //ApplianceController APIs
     String ADD_APPLIANCE = "/add-appliance";
@@ -17,6 +18,7 @@ public interface APIConstants {
     String GET_APPLIANCES_UOM = "/get/uom/{uomId}";
     String GET_APPLIANCES_ASSIGNEE = "/get/assignee/{assigneeName}";
     String GET_APPLIANCES_ALL = "/getAll";
+    String GET_ALL_APPLIANCE_BY_FILTER = "/getAllByFilter";
 
     //ReservationController APIs
     String RESERVE_APPLIANCE = "/reserve";
@@ -35,5 +37,12 @@ public interface APIConstants {
     String GET_ALL_APPLIANCE_COUNT_MODEL = "/get/count/model";
     String GET_ALL_ACTIVITY = "/get/activity/all";
     String TEST_EMAIL = "/test-mail";
+
+
+    //files APIs
+    String UPLOAD_FILES = "/upload";
+    String DOWNLOAD_SINGLE_FILE = "/download/{applianceName}/{fileName}";
+    String DOWNLOAD_FILES = "/download/{applianceName}";
+    String GET_LIST = "/all/{applianceName}";
 
 }

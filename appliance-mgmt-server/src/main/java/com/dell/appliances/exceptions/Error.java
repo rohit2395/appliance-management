@@ -9,12 +9,18 @@ public enum Error {
 
 
     FAILED_TO_ADD_NEW_APPLIANCE("Failed to add new appliance!", HttpStatus.INTERNAL_SERVER_ERROR),
+    APPLIANCE_ALREADY_REGISTERED("Appliance {0} is already registered! Go to \"View Appliances\" tab!", HttpStatus.INTERNAL_SERVER_ERROR),
     FAILED_TO_UPDATE_APPLIANCE("Failed to update appliance!", HttpStatus.INTERNAL_SERVER_ERROR),
     APPLIANCE_NOT_FOUND_ID("Appliance not found with ID:{0}!", HttpStatus.NOT_FOUND),
     APPLIANCE_NOT_FOUND_NAME("Appliance not found with Name:{0}!", HttpStatus.NOT_FOUND),
     APPLIANCES_NOT_FOUND("Appliances not found!", HttpStatus.NOT_FOUND),
 
     FAILED_TO_RESERVE_APPLIANCE("Failed to reserve appliance with Name:{0}!", HttpStatus.INTERNAL_SERVER_ERROR),
+
+    FAILED_TO_UPLOAD_FILE("Failed to upload file(s) with Name:{0}!", HttpStatus.INTERNAL_SERVER_ERROR),
+    FAILED_TO_DELETE_FILE("Failed to delete file(s) with Name:{0}!", HttpStatus.INTERNAL_SERVER_ERROR),
+    FAILED_TO_GET_FILE("Failed to load file(s) with Name:{0}!", HttpStatus.INTERNAL_SERVER_ERROR),
+
     ;
 
 

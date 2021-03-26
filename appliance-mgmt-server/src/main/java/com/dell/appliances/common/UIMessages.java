@@ -15,5 +15,8 @@ public interface UIMessages {
     String APPLIANCE_RESERVED = "Appliance reserved successfully";
     String APPLIANCE_RELEASED = "Appliance released successfully";
 
+
+    String FILES_ADDED = "Uploaded the files successfully";
+
     String CONN_TESTED = "Connection tested successfully";
 }

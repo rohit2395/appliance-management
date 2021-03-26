@@ -9,7 +9,9 @@ public enum Location {
     HOPKINTON("Hopkinton"),
     BANGLORE("Banglore"),
     SANTA_CLARA("Santa Clara"),
-    CHINA("China");
+    CHINA("China"),
+    DURHAM("Durham");
+
 
 
 
@@ -22,6 +24,7 @@ public enum Location {
         map.put("Banglore",BANGLORE);
         map.put("Santa Clara",SANTA_CLARA);
         map.put("China",CHINA);
+        map.put("Durham",DURHAM);
     }
 
     Location(String loc) {

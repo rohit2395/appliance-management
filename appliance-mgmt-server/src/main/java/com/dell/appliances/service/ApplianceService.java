@@ -2,6 +2,7 @@ package com.dell.appliances.service;
 
 import com.dell.appliances.common.StringUtils;
 import com.dell.appliances.dto.ApplianceDetailsPayload;
+import com.dell.appliances.dto.ApplianceFilter;
 import com.dell.appliances.exceptions.ApplianceException;
 import com.dell.appliances.exceptions.Error;
 import com.dell.appliances.model.ActivityDetails;
@@ -47,23 +48,30 @@ public class ApplianceService implements IApplianceService {
     @Override
     public void addNewAppliance(ApplianceDetailsPayload applianceDetailsPayload) throws ApplianceException {
         LOG.info("Adding a new appliance to the system");
-        try {
-            ApplianceDetails applianceDetails = new ApplianceDetails(applianceDetailsPayload.getApplianceName(), ApplianceModel.getApplianceModel(applianceDetailsPayload.getApplianceModel()), applianceDetailsPayload.getCanBeShared());
-            Optional<UnitOfManagement> unitOfManagement = unitOfManagementRepository.findByName(applianceDetailsPayload.getUomName());
-            unitOfManagement.ifPresent(applianceDetails::setUnitOfManagement);
-            applianceDetails.setLocation(Location.getLocation(applianceDetailsPayload.getLocation()));
-            applianceDetails.setGeneration(Generation.getGeneration(applianceDetailsPayload.getGeneration()));
-            applianceDetails.setOwnerName(applianceDetailsPayload.getAssignee());
-            applianceDetails.setEmail(applianceDetailsPayload.getAssigneeEmail());
-            applianceDetails.setPurpose(Purpose.getPurpose(applianceDetailsPayload.getPurpose()));
-            applianceDetails.setConfiguration(applianceDetailsPayload.getConfiguration());
-            applianceDetailsRepository.save(applianceDetails);
-            activityDetailsRepository.save(new ActivityDetails("A new appliance - "+applianceDetails.getApplianceName()+" [ Model:"+applianceDetails.getApplianceModel().getVal()+", UoM Name:"+applianceDetails.getUnitOfManagement().getName()+" ]"+" is added.",new Date()));
-        }catch (Exception e){
-            LOG.error("Failed to add new appliance to the system",e);
-            throw new ApplianceException(Error.FAILED_TO_ADD_NEW_APPLIANCE,e);
+
+        Optional<ApplianceDetails> applianceDetailsCheck = applianceDetailsRepository.findByApplianceName(applianceDetailsPayload.getApplianceName());
+        if(!applianceDetailsCheck.isPresent()) {
+            try {
+                ApplianceDetails applianceDetails = new ApplianceDetails(applianceDetailsPayload.getApplianceName(), ApplianceModel.getApplianceModel(applianceDetailsPayload.getApplianceModel()), applianceDetailsPayload.getCanBeShared());
+                Optional<UnitOfManagement> unitOfManagement = unitOfManagementRepository.findByName(applianceDetailsPayload.getUomName());
+                unitOfManagement.ifPresent(applianceDetails::setUnitOfManagement);
+                applianceDetails.setLocation(Location.getLocation(applianceDetailsPayload.getLocation()));
+                applianceDetails.setGeneration(Generation.getGeneration(applianceDetailsPayload.getGeneration()));
+                applianceDetails.setOwnerName(applianceDetailsPayload.getAssignee());
+                applianceDetails.setEmail(applianceDetailsPayload.getAssigneeEmail());
+                applianceDetails.setPurpose(Purpose.getPurpose(applianceDetailsPayload.getPurpose()));
+                applianceDetails.setConfiguration(applianceDetailsPayload.getConfiguration());
+                applianceDetailsRepository.save(applianceDetails);
+                activityDetailsRepository.save(new ActivityDetails("A new appliance - " + applianceDetails.getApplianceName() + " [ Model:" + applianceDetails.getApplianceModel().getVal() + ", UoM Name:" + applianceDetails.getUnitOfManagement().getName() + " ]" + " is added.", new Date()));
+                LOG.info("New appliance successfully added to the system");
+            }catch (Exception e){
+                LOG.error("Failed to add new appliance to the system",e);
+                throw new ApplianceException(Error.FAILED_TO_ADD_NEW_APPLIANCE,e);
+            }
+        }else{
+            LOG.error("Appliance with this name is already in the system.");
+            throw new ApplianceException(Error.APPLIANCE_ALREADY_REGISTERED,new String[]{applianceDetailsPayload.getApplianceName()},null);
         }
-        LOG.info("New appliance successfully added to the system");
     }
 
     @Override
@@ -183,6 +191,52 @@ public class ApplianceService implements IApplianceService {
             return applianceDetailsPayloads;
         }catch (Exception e){
             LOG.error("Failed to fetch appliance details",e);
+            throw new ApplianceException(Error.APPLIANCES_NOT_FOUND,e);
+        }
+    }
+
+    @Override
+    public List<ApplianceDetailsPayload> getAllAppDetailsList(ApplianceFilter applianceFilter) throws ApplianceException {
+        LOG.info("Getting all appliance details by filter "+applianceFilter);
+        try {
+            //create sets of the filter
+            HashSet<ApplianceModel> selectedModels = new HashSet<>();
+            HashSet<String> selectedUoms = new HashSet<>(applianceFilter.getSelectedUoms());
+            HashSet<Location> selectedlocations = new HashSet<>();
+            HashSet<Generation> selectedGenerations = new HashSet<>();
+            HashSet<Purpose> selectedPurposes = new HashSet<>();
+
+            for(String model:applianceFilter.getSelectedModels()){
+                selectedModels.add(ApplianceModel.getApplianceModel(model));
+            }
+
+            for(String loc:applianceFilter.getSelectedLocations()){
+                selectedlocations.add(Location.getLocation(loc));
+            }
+            for(String gen:applianceFilter.getSelectedGenerations()){
+                selectedGenerations.add(Generation.getGeneration(gen));
+            }
+            for(String purpose:applianceFilter.getSelectedPurposes()){
+                selectedPurposes.add(Purpose.getPurpose(purpose));
+            }
+
+            LOG.info(selectedModels);
+            LOG.info(selectedUoms);
+            LOG.info(selectedlocations);
+            LOG.info(selectedlocations);
+            LOG.info(selectedPurposes);
+
+            List<ApplianceDetails> data = applianceDetailsRepository.findAll();
+            List<ApplianceDetailsPayload> applianceDetailsPayloads = new ArrayList<>();
+            for(ApplianceDetails app : data){
+                if(selectedModels.contains(app.getApplianceModel()) && selectedUoms.contains(app.getUnitOfManagement().getName()) &&
+                    selectedlocations.contains(app.getLocation()) && selectedGenerations.contains(app.getGeneration()) && selectedPurposes.contains(app.getPurpose()))
+                applianceDetailsPayloads.add(convertToPayLoad(app));
+            }
+            LOG.info("Appliance details fetched successfully by custom filter: {}",data);
+            return applianceDetailsPayloads;
+        }catch (Exception e){
+            LOG.error("Failed to fetch appliance details by custom filter",e);
             throw new ApplianceException(Error.APPLIANCES_NOT_FOUND,e);
         }
     }

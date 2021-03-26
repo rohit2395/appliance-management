@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping(APIConstants.GENERAL)
 public class GeneralController {
 
-    public static final Logger LOG = LogManager.getLogger(ApplianceController.class);
+    public static final Logger LOG = LogManager.getLogger(GeneralController.class);
 
     @Autowired
     private IGeneralService generalService;
@@ -161,5 +161,6 @@ public class GeneralController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
 }

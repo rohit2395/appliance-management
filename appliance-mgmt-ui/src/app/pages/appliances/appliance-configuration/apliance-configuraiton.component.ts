@@ -1,12 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { ApplianceData } from './appliance-data';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApplianceDetailsPayload } from 'app/models/appliance-details-payload';
 import { FormGroup,FormBuilder, Validators} from '@angular/forms';
 import { RegisterService } from 'app/services/register.service';
 import { RegisterDetailsPayload } from 'app/models/register-details-payload';
 import { NbComponentStatus, NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
 import { ReservationService } from 'app/services/reservation.service';
+import { LicenseManagerComponent } from './license-manager/license-manager.component';
 
 @Component({
   selector: 'appliance-configuration',
@@ -15,6 +16,7 @@ import { ReservationService } from 'app/services/reservation.service';
 })
 export class ApplianceConfiguration implements OnInit {
 
+  isDataUpdated:boolean;
   isInProgress:boolean;
   textareaBg:string;
   textareaColor:string;
@@ -24,8 +26,8 @@ export class ApplianceConfiguration implements OnInit {
   allPurpose=[""];
   // configuration: string;
 
-  constructor(private reservationService : ReservationService,@Inject(MAT_DIALOG_DATA) public data: ApplianceData,private formBuilder:FormBuilder,private registerService : RegisterService,private toastrService: NbToastrService) {
-    
+  constructor(private reservationService : ReservationService,@Inject(MAT_DIALOG_DATA) public data: ApplianceData,private formBuilder:FormBuilder,private registerService : RegisterService,private toastrService: NbToastrService,public dialog: MatDialog,private dialogRef: MatDialogRef<ApplianceConfiguration>) {
+    this.isDataUpdated = false;
     this.applianceDetails = data.applianceDetails;
     console.log(this.applianceDetails);
     
@@ -35,6 +37,7 @@ export class ApplianceConfiguration implements OnInit {
       purpose:[{value:this.applianceDetails.purpose,disabled:this.isDisabled},Validators.required],
       configuration:[{value:this.applianceDetails.configuration,disabled:this.isDisabled},Validators.required]
     });
+
   }
 
   ngOnInit(): void {
@@ -82,8 +85,25 @@ export class ApplianceConfiguration implements OnInit {
     this.textareaColor='black';
   }
 
+  openLicenseManager():void{
+    console.log("Opening license manager for"+this.applianceDetails.applianceName);
+    
+    const dialogRef = this.dialog.open(LicenseManagerComponent, {
+      height: '95%',
+      width: '65%',
+      data: this.applianceDetails.applianceName
+    });
+    
+    // dialogRef.afterClosed().subscribe(isDataUpdated => {
+    //   console.log(isDataUpdated);
+    //   if(isDataUpdated)
+    //     this.applyFilter();
+    // });
+  }
+
   update(): void {
     this.isInProgress=true;
+    this.isDataUpdated=true;
     // this.configuration=this.updateConfigurationForm.get("configuration").value;
     this.applianceDetails.assignee = this.updateConfigurationForm.get("assignee").value;
     this.applianceDetails.assigneeEmail = this.updateConfigurationForm.get("email").value;
@@ -100,11 +120,11 @@ export class ApplianceConfiguration implements OnInit {
       if(data.status == '201'){
         console.log('appliance updated',data);
         this.showToast('primary',data.message,'Success');
-        this.init();
+        this.dialogRef.close(this.isDataUpdated);
       }
       else{
         console.error('failed to update',data);
-        this.showToast('primary','Failed to update appliance!','Success');
+        this.showToast('primary','Failed to update appliance!','Failure');
       }
     }, error => {
       console.log(error);
@@ -115,6 +135,10 @@ export class ApplianceConfiguration implements OnInit {
         console.error('failed to update');
       }
     });
+  }
+
+  close():void{
+    this.dialogRef.close();
   }
 
   private showToast(type: NbComponentStatus, body: string,title:string) {

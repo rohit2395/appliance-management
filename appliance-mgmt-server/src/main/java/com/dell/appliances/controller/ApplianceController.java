@@ -4,6 +4,7 @@ import com.dell.appliances.common.ApplianceUtil;
 import com.dell.appliances.common.UIMessages;
 import com.dell.appliances.dto.APIResponse;
 import com.dell.appliances.dto.ApplianceDetailsPayload;
+import com.dell.appliances.dto.ApplianceFilter;
 import com.dell.appliances.exceptions.ApplianceException;
 import com.dell.appliances.service.interfaces.IApplianceService;
 import org.apache.logging.log4j.LogManager;
@@ -97,6 +98,18 @@ public class ApplianceController {
             return new ResponseEntity<>(applianceDetailsPayloads,HttpStatus.OK);
         } catch (ApplianceException e) {
             LOG.error("Failed to get all appliance details",e.getErrorMessage());
+            return new ResponseEntity<>(ApplianceUtil.buildApiResponse(e),e.getErrorCode());
+        }
+    }
+
+    @PostMapping(APIConstants.GET_ALL_APPLIANCE_BY_FILTER)
+    public ResponseEntity<?> getAllAppliancesByFilter(@RequestBody ApplianceFilter applianceFilter) {
+        LOG.info("Received request to get all appliance details by filter..");
+        try {
+            List<ApplianceDetailsPayload> applianceDetailsPayloads = applianceService.getAllAppDetailsList(applianceFilter);
+            return new ResponseEntity<>(applianceDetailsPayloads,HttpStatus.OK);
+        } catch (ApplianceException e) {
+            LOG.error("Failed to get all appliance details by filter",e.getErrorMessage());
             return new ResponseEntity<>(ApplianceUtil.buildApiResponse(e),e.getErrorCode());
         }
     }

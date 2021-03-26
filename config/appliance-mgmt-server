@@ -1,0 +1,2 @@
+#!/bin/sh
+sudo /usr/bin/java -jar /usr/local/appliance_reservation/appliance-mgmt-server-*.jar

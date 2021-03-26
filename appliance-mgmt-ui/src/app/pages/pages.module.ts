@@ -10,6 +10,7 @@ import { StatusCardComponent } from './dashboard/status-card/status-card.compone
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RegisterComponent } from './register/register.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { LicenseManagerComponent } from './appliances/appliance-configuration/license-manager/license-manager.component';
 
 
 
@@ -17,6 +18,7 @@ import { ReservationComponent } from './reservation/reservation.component';
   declarations: [
     AppliancesComponent,
     ApplianceConfiguration,
+    LicenseManagerComponent,
     DashboardComponent,
     StatusCardComponent,
     RegisterComponent,

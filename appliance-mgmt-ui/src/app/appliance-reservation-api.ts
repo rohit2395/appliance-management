@@ -14,6 +14,7 @@ export class ApplianceApi{
     public static APPLIANCE_API_GET_ID = ApplianceApi.API_ENDPOINT + '/appliance' + "/get/id/";
     public static APPLIANCE_API_GET_NAME = ApplianceApi.API_ENDPOINT + '/appliance' + "/get/name/";
     public static APPLIANCE_API_GET_APPLIANCES_ALL = ApplianceApi.API_ENDPOINT + '/appliance' + "/getAll";
+    public static APPLIANCE_API_GET_APPLIANCES_ALL_BY_FILTER = ApplianceApi.API_ENDPOINT + '/appliance' + "/getAllByFilter";
     public static API_GET_APPLIANCES_ALL_NAMES_AVAILABLE = ApplianceApi.API_ENDPOINT + '/appliance' + "/get/appliance-name-all/available";
     public static API_GET_APPLIANCES_ALL_NAMES_RESERVED = ApplianceApi.API_ENDPOINT + '/appliance' + "/get/appliance-name-all/unavailable";
 
@@ -30,4 +31,10 @@ export class ApplianceApi{
     //Appliance reservation
     public static APPLIANCE_API_RESERVE = ApplianceApi.API_ENDPOINT + '/reservation' + '/reserve';
     public static APPLIANCE_API_RELEASE = ApplianceApi.API_ENDPOINT + '/reservation' + '/release';
+
+    //License manager
+    public static APPLIANCE_API_UPLOAD_LICENSE = ApplianceApi.API_ENDPOINT + '/files' + '/upload';
+    public static APPLIANCE_API_GET_LICENSE_LIST = ApplianceApi.API_ENDPOINT + '/files' + '/all/';
+    public static APPLIANCE_API_DOWNLOAD_LICENSE = ApplianceApi.API_ENDPOINT + '/files' + '/download/';
+
 }

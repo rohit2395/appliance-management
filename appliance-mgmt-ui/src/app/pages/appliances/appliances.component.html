@@ -1,14 +1,72 @@
-<nb-card>
+<nb-card >
  
     <nb-tabset fullWidth>
   
       <nb-tab tabTitle="All Appliances" class="body">
   
-        <div class="slider-container">
-          <ng2-smart-table [settings]="allApplianceSetting" [source]="allAppliancedata"  (userRowSelect)="getDetails($event.data)">
-          </ng2-smart-table>
+        <div class="slider-container" [nbSpinner]="isSpinner" nbSpinnerSize="giant" nbSpinnerStatus="info">
+          <div class="row filters">
+            <div class="col-lg-1">
+              <label for="name" class="label bluelabel col-form-label">Model:</label>
+            </div>
+            <div class="col-lg-2">
+              <nb-select class="filter" multiple placeholder="Select Model" [formControl]="selectedModels" style="width: 100%;">
+                <nb-option *ngFor="let model of modelsOption" [value]="model" (click)="modelsSelected(model)">{{model}}</nb-option>
+              </nb-select>
+            </div>
+            <div class="col-lg-1">
+              <label for="name" class="label bluelabel col-form-label" >UoM:</label>
+            </div>
+            <div class="col-lg-6">
+              <nb-select class="filter " multiple placeholder="Select UoM" [formControl]="selectedUoms" style="min-width: 100%;">
+                <nb-option *ngFor="let uom of uomsOption" [value]="uom" (click)="uomSelected(uom)">{{uom}}</nb-option>
+              </nb-select>
+            </div>
+            <div class="col-lg-2">
+              <button nbButton [status]="'info'" outline (click)="applyFilter()" style="text-transform: unset !important;">Apply Filters</button>
+            </div>
+          </div>
+          <div class="row filters">
+            <div class="col-lg-1">
+              <label for="name" class="label bluelabel col-form-label" >Location:</label>
+            </div>
+            <div class="col-lg-2">
+              <nb-select class="filter " multiple placeholder="Select Location" [formControl]="selectedLocations" style="width: 100%;">
+                <nb-option *ngFor="let loc of locationOption" [value]="loc" (click)="locationSelected(loc)">{{loc}}</nb-option>
+              </nb-select>
+            </div>
+            <div class="col-lg-1">
+              <label for="name" class="label bluelabel col-form-label">Gen:</label>
+            </div>
+            <div class="col-lg-2">
+              <nb-select class="filter " multiple placeholder="Select Gen"  [formControl]="selectedGens" style="width: 100%;">
+                <nb-option *ngFor="let gen of genOption" [value]="gen" (click)="genSelected(gen)">{{gen}}</nb-option>
+              </nb-select>
+            </div>
+            <div class="col-lg-1">
+              <label for="name" class="label bluelabel col-form-label" >Purpose:</label>
+            </div>
+            <div class="col-lg-3">
+              <nb-select fullWidth class="filter" multiple placeholder="Select Purpose"  [formControl]="selectedPurposes" style="width: 100%;">
+                <nb-option *ngFor="let purpose of purposeOption" [value]="purpose" (click)="purposesSelected(purpose)">{{purpose}}</nb-option>
+              </nb-select>
+            </div>
+            <div class="col-lg-2">
+              <button nbButton [status]="'warning'" outline (click)="clearAllFilters()" style="text-transform: unset !important;">Clear Filters</button>
+            </div>
+          </div>
         </div>
-
+        <div class="row">
+          <div class="col-lg-12">
+            <h5>Result appliance count: <span class="count">{{allAppliancedata.length}}</span></h5>
+          </div>
+        </div>
+        <div class="row" [nbSpinner]="isSpinner" nbSpinnerSize="giant" nbSpinnerStatus="info">
+          <div class="col-lg-12">
+            <ng2-smart-table [settings]="allApplianceSetting" [source]="allAppliancedata"  (userRowSelect)="getDetails($event.data)" >
+            </ng2-smart-table>
+          </div>
+        </div>
       </nb-tab>
   
       <!-- <nb-tab tabTitle="Available Appliances">

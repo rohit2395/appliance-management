@@ -24,6 +24,7 @@ import { DashboardService } from './services/dashboard.service';
 import { RegisterService } from './services/register.service';
 import { ReservationService } from './services/reservation.service';
 import { PagesModule } from './pages/pages.module';
+import { LicenseService } from './services/license.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { PagesModule } from './pages/pages.module';
     AppliancesService,
     DashboardService,
     RegisterService,
-    ReservationService
+    ReservationService,
+    LicenseService
   ],
   bootstrap: [
     AppComponent
