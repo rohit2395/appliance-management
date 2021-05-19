@@ -58,18 +58,18 @@ export class AppliancesComponent implements OnInit {
         title: 'Location',
         type: 'string',
       },
-      generation: {
-        title: 'Generation',
-        type: 'string',
-      },
+      // generation: {
+      //   title: 'Generation',
+      //   type: 'string',
+      // },
       assignee: {
         title: 'Assignee',
         type: 'string',
       },
-      assigneeEmail: {
-        title: 'Assignee Email',
-        type: 'string',
-      },
+      // assigneeEmail: {
+      //   title: 'Assignee Email',
+      //   type: 'string',
+      // },
       purpose: {
         title: 'Purpose',
         type: 'string',

@@ -47,7 +47,7 @@
               <label for="name" class="label bluelabel col-form-label" >Purpose:</label>
             </div>
             <div class="col-lg-3">
-              <nb-select fullWidth class="filter" multiple placeholder="Select Purpose"  [formControl]="selectedPurposes" style="width: 100%;">
+              <nb-select class="filter" multiple placeholder="Select Purpose"  [formControl]="selectedPurposes" style="width: 100%;">
                 <nb-option *ngFor="let purpose of purposeOption" [value]="purpose" (click)="purposesSelected(purpose)">{{purpose}}</nb-option>
               </nb-select>
             </div>

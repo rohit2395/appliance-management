@@ -2,24 +2,24 @@
   <nb-card status="info">
     <nb-card-header>
       <div class="row">
-        <div class="col-sm-11 title" style="margin-top:10px;">Appliance Details</div>
+        <div class="col-sm-11 title" style="margin-top:10px;">{{applianceDetails.applianceName}}</div>
         <div class="col-sm-1"><button nbButton (click)="close()">X</button></div>
       </div>
     </nb-card-header>
 
     <nb-card-body class="body" [nbSpinner]="isInProgress" nbSpinnerSize="giant" nbSpinnerStatus="info">
       <div class="row">
-        <label for="name" class="label bluelabel col-sm-1 col-form-label">Name:</label>
-        <label for="name" class="label label2 col-sm-2 col-form-label">{{applianceDetails.applianceName}}</label>
+        <!-- <label for="name" class="label bluelabel col-sm-1 col-form-label">Name:</label>
+        <label for="name" class="label label2 col-sm-2 col-form-label">{{applianceDetails.applianceName}}</label> -->
         <label for="model" class="label bluelabel col-sm-1 col-form-label">Model:</label>
         <label for="name" class="label label2 col-sm-2 col-form-label">{{applianceDetails.applianceModel}}</label>
-        <label for="model" class="label bluelabel col-sm-1 col-form-label">UoM:</label>
-        <label for="name" class="label label2 col-sm-5 col-form-label">{{applianceDetails.uomName}}</label>
+        <label for="model" class="label bluelabel col-sm-2 col-form-label">UoM:</label>
+        <label for="name" class="label label2 col-sm-7 col-form-label">{{applianceDetails.uomName}}</label>
       </div>
       <div class="row">
         <label for="name" class="label bluelabel col-sm-1 col-form-label">Location:</label>
         <label for="name" class="label label2 col-sm-2 col-form-label">{{applianceDetails.location}}</label>
-        <label for="model" class="label bluelabel col-xs-3 col-form-label">Generation:</label>
+        <label for="model" class="label bluelabel col-sm-2 col-form-label">Generation:</label>
         <label for="name" class="label label2 col-sm-2 col-form-label">{{applianceDetails.generation}}</label>
         <!-- <label for="model" class="label bluelabel col-sm-1 col-form-label">UoM:</label>
           <label for="name" class="label label2 col-sm-5 col-form-label">{{applianceDetails.uomName}}</label> -->
