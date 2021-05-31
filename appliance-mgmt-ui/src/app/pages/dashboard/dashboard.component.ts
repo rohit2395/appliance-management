@@ -20,7 +20,8 @@ export class DashboardComponent implements OnDestroy,OnInit {
   DP4Xs = "4400s";
   DP4X = "4400";
   DP5x = "5x00";
-  DP8x = "8x00"
+  DP8x = "8x00";
+  LocalEsxi = "Local-ESXi";
   private alive = true;
 
   activitySettings = {
@@ -54,12 +55,18 @@ export class DashboardComponent implements OnDestroy,OnInit {
 
 
   location: CardSettings = {
-    title: 'By Location',
+    title: 'By Location - Appliance',
     fields:[],
   };
 
   generation: CardSettings = {
     title: 'By Generation',
+    fields:[],
+  };
+
+  
+  locationLocal: CardSettings = {
+    title: 'By Location - Local ESXi',
     fields:[],
   };
 
@@ -82,9 +89,11 @@ export class DashboardComponent implements OnDestroy,OnInit {
       total8x00:0,
       totalAvailable8x00:0,
       totalReserved8x00:0,
+      totalLocal:0,
       
       countByLoc:[],
-      countByGen:[]
+      countByGen:[],
+      countByLocEsxi:[]
 
     }    
   }
@@ -110,13 +119,19 @@ export class DashboardComponent implements OnDestroy,OnInit {
       this.applianceCard.fields.push({key:this.DP4X,value:this.applianeCount.total4x00});
       this.applianceCard.fields.push({key:this.DP5x,value:this.applianeCount.total5x00});
       this.applianceCard.fields.push({key:this.DP8x,value:this.applianeCount.total8x00});
-      
+      // this.applianceCard.fields.push({key:this.LocalEsxi,value:this.applianeCount.totalLocal});
+
       for(let loc of this.applianeCount.countByLoc){
         this.location.fields.push({key:loc["locName"],value:loc["count"]});
       }
 
       for(let gen of this.applianeCount.countByGen){
         this.generation.fields.push({key:gen["gen"],value:gen["count"]});
+      }
+
+      this.locationLocal.fields.push({key:"Total",value:this.applianeCount.totalLocal});
+      for(let loc of this.applianeCount.countByLocEsxi){
+        this.locationLocal.fields.push({key:loc["locName"],value:loc["count"]});
       }
       
       

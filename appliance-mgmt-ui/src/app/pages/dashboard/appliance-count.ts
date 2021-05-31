@@ -14,7 +14,9 @@ export class ApplianceCount{
         total8x00:number;
         totalAvailable8x00:number;
         totalReserved8x00:number;
+        totalLocal:number;
 
         countByLoc:[];
         countByGen:[];
+        countByLocEsxi:[];
 }

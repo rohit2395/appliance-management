@@ -14,7 +14,8 @@ public enum ApplianceModel {
     MODEL_8300("DP8300"),
     MODEL_8400("DP8400"),
     MODEL_8800("DP8800"),
-    MODEL_8900("DP8900");
+    MODEL_8900("DP8900"),
+    LOCAL("Local Setup ESXi");
 
     private final String model;
     private static Map<String,ApplianceModel> map = new HashMap<>();
@@ -29,6 +30,7 @@ public enum ApplianceModel {
         map.put("DP8400",MODEL_8400);
         map.put("DP8800",MODEL_8800);
         map.put("DP8900",MODEL_8900);
+        map.put("Local Setup ESXi",LOCAL);
     }
     ApplianceModel(String model) {
         this.model = model;

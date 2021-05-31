@@ -56,6 +56,7 @@ public class GeneralService implements IGeneralService {
         allModels.add(ApplianceModel.MODEL_8400.getVal());
         allModels.add(ApplianceModel.MODEL_8800.getVal());
         allModels.add(ApplianceModel.MODEL_8900.getVal());
+        allModels.add(ApplianceModel.LOCAL.getVal());
         return allModels;
     }
 
@@ -144,6 +145,9 @@ public class GeneralService implements IGeneralService {
                 if(applianceDetails.getAppliancePossessionStatus().equals(AppliancePossessionStatus.AVAILABLE))
                     applianceCount.setTotalAvailable8x00(applianceCount.getTotalAvailable8x00()+1);
             }
+            else if(applianceDetails.getApplianceModel().equals(ApplianceModel.LOCAL)) {
+                applianceCount.setTotalLocal(applianceCount.getTotalLocal()+1);
+            }
         }
 
         applianceCount.setTotalAppliances(applianceCount.getTotal4x00s()+applianceCount.getTotal4x00()+applianceCount.getTotal5x00()+applianceCount.getTotal8x00());
@@ -156,12 +160,16 @@ public class GeneralService implements IGeneralService {
 
         applianceCount.setCountByLoc(new ArrayList<>());
         applianceCount.setCountByGen(new ArrayList<>());
+        applianceCount.setCountByLocEsxi(new ArrayList<>());
         for(ICountByLocation countByLocation : applianceDetailsRepository.getTotalCountByLocation()){
             applianceCount.getCountByLoc().add(new CountByLocation(countByLocation.getLocation().getVal(),countByLocation.getTotalCount()));
         }
 
         for(ICountByGeneration countByGeneration : applianceDetailsRepository.getTotalCountByGeneration()){
             applianceCount.getCountByGen().add(new CountByGeneration(countByGeneration.getGeneration().getVal(),countByGeneration.getTotalCount()));
+        }
+        for(ICountByLocation countByLocation : applianceDetailsRepository.getTotalCountByLocationEsxi()){
+            applianceCount.getCountByLocEsxi().add(new CountByLocation(countByLocation.getLocation().getVal(),countByLocation.getTotalCount()));
         }
 
         return applianceCount;

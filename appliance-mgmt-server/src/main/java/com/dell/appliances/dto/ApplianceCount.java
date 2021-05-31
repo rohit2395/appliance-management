@@ -28,8 +28,11 @@ public class ApplianceCount {
     private int totalAvailable8x00;
     private int totalReserved8x00;
 
+    private int totalLocal;
+
     private List<CountByLocation> countByLoc;
     private List<CountByGeneration> countByGen;
+    private List<CountByLocation> countByLocEsxi;
 
     public int getTotalAppliances() {
         return totalAppliances;
@@ -151,6 +154,14 @@ public class ApplianceCount {
         this.totalReserved8x00 = totalReserved8x00;
     }
 
+    public int getTotalLocal() {
+        return totalLocal;
+    }
+
+    public void setTotalLocal(int totalLocal) {
+        this.totalLocal = totalLocal;
+    }
+
     public List<CountByLocation> getCountByLoc() {
         return countByLoc;
     }
@@ -165,5 +176,13 @@ public class ApplianceCount {
 
     public void setCountByGen(List<CountByGeneration> countByGen) {
         this.countByGen = countByGen;
+    }
+
+    public List<CountByLocation> getCountByLocEsxi() {
+        return countByLocEsxi;
+    }
+
+    public void setCountByLocEsxi(List<CountByLocation> countByLocEsxi) {
+        this.countByLocEsxi = countByLocEsxi;
     }
 }

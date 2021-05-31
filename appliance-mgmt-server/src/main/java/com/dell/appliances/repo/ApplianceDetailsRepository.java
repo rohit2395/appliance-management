@@ -25,9 +25,12 @@ public interface ApplianceDetailsRepository extends JpaRepository<ApplianceDetai
     @Query("SELECT c.applianceModel as model, COUNT(c.applianceModel) as totalCount FROM ApplianceDetails AS c GROUP BY c.applianceModel")
     List<ICountByModel> getTotalCountByModel();
 
-    @Query("SELECT c.location as location, COUNT(c.location) as totalCount FROM ApplianceDetails AS c GROUP BY c.location")
+    @Query("SELECT c.location as location, COUNT(c.location) as totalCount FROM ApplianceDetails AS c WHERE c.applianceModel != \'LOCAL\' GROUP BY c.location")
     List<ICountByLocation> getTotalCountByLocation();
 
-    @Query("SELECT c.generation as generation, COUNT(c.generation) as totalCount FROM ApplianceDetails AS c GROUP BY c.generation")
+    @Query("SELECT c.generation as generation, COUNT(c.generation) as totalCount FROM ApplianceDetails AS c WHERE c.applianceModel != \'LOCAL\' GROUP BY c.generation")
     List<ICountByGeneration> getTotalCountByGeneration();
+
+    @Query("SELECT c.location as location, COUNT(c.location) as totalCount FROM ApplianceDetails AS c WHERE c.applianceModel = \'LOCAL\' GROUP BY c.location")
+    List<ICountByLocation> getTotalCountByLocationEsxi();
 }
